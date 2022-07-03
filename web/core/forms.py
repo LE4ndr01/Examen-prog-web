@@ -1,7 +1,3 @@
-
-from ast import Name
-from tabnanny import verbose
-from wsgiref.handlers import format_date_time
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
