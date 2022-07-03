@@ -18,12 +18,24 @@ from django.contrib.auth.hashers import check_password
 from rest_framework import status
 from rest_framework.authentication import  TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-
+from .services import get_lista
 # Create your views here.
+#---------------------------------
 
+def hello_user(requests):
+    context = {
+        'nombre': get_lista()
+    }
+    return render(requests, 'hello_user.html', context)
+#Si así lo deseamos poder enviar parametros a nuestra petición.
 
+def hello_user(requests):
+    params = { 'order': 'desc' }
 
-
+    context = {
+        'name': get_lista(params)
+    }
+    return render(requests, 'listar.html', context)
 
 #---------------------------------
 class ProductoViewset(viewsets.ModelViewSet):
@@ -37,8 +49,6 @@ class ProductoViewset(viewsets.ModelViewSet):
         if nombre:
             productos = productos.filter(nombre__contains=nombre)
         return productos
-
-
 def inicio (request):
     return render(request, 'core/index.html')
 def nosotros (request):
@@ -110,7 +120,6 @@ def registro (request):
 @login_required
 def compra (request):
     return render(request, 'core/compra.html')
-
 # CRUD PRODUCTO
 # metodo Agregar
 @permission_required('core.add_producto')
@@ -176,9 +185,7 @@ def listar_producto(request):
     
 
     return render (request, 'crud/listar.html',data)
-    
 #------------------------------------------------
-
 # CRUD CATEGORIA
 @permission_required('core.add_tipo')
 def agregar_tipo(request):

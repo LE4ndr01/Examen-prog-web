@@ -1,4 +1,3 @@
-from asyncore import read
 from .models import Producto,tipo
 from rest_framework import serializers
 
