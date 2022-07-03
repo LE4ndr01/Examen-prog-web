@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compra</title>
+</head>
+<body>
+{% load static %}
+    <link rel="stylesheet" href= "{% static 'core/estilos/compra.css'%}" >
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
+    <div class="container px-4 py-5 mx-auto">
+        <div class="row d-flex justify-content-center">
+            <div class="col-5">
+                <h4 class="heading">Shopping Bag</h4>
+            </div>
+            <div class="col-7">
+                <div class="row text-right">
+                    <div class="col-4">
+                        <h6 class="mt-2">Format</h6>
+                    </div>
+                    <div class="col-4">
+                        <h6 class="mt-2">Quantity</h6>
+                    </div>
+                    <div class="col-4">
+                        <h6 class="mt-2">Price</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row d-flex justify-content-center border-top">
+            <div class="col-5">
+                <div class="row d-flex">
+                    <div class="book">
+                        <img src= "{% static 'core/imagenes/flor1.jpg'%}" class="book-img">
+                    </div>
+                    <div class="my-auto flex-column d-flex pad-left">
+                        <h6 class="mob-text">Thinking, Fast and Slow</h6>
+                        <p class="mob-text">Daniel Kahneman</p>
+                    </div>
+                </div>
+            </div>
+            <div class="my-auto col-7">
+                <div class="row text-right">
+                    <div class="col-4">
+                        <p class="mob-text">Digital</p>
+                    </div>
+                    <div class="col-4">
+                        <div class="row d-flex justify-content-end px-3">
+                            <p class="mb-0" id="cnt1">1</p>
+                            <div class="d-flex flex-column plus-minus">
+                                <span class="vsm-text plus">+</span>
+                                <span class="vsm-text minus">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <h6 class="mob-text">$9.99</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center border-top">
+            <div class="col-5">
+                <div class="row d-flex">
+                    <div class="book">
+                        <img src= "{% static 'core/imagenes/carretilla1.jpg'%}" class="book-img">
+                    </div>
+                    <div class="my-auto flex-column d-flex pad-left">
+                        <h6 class="mob-text">Homo Deus: A Brief<br>History of Tomorrow</h6>
+                        <p class="mob-text">Yuval Noah Harari</p>
+                    </div>
+                </div>
+            </div>
+            <div class="my-auto col-7">
+                <div class="row text-right">
+                    <div class="col-4">
+                        <p class="mob-text">Paperback</p>
+                    </div>
+                    <div class="col-4">
+                        <div class="row d-flex justify-content-end px-3">
+                            <p class="mb-0" id="cnt2">1</p>
+                            <div class="d-flex flex-column plus-minus">
+                                <span class="vsm-text plus">+</span>
+                                <span class="vsm-text minus">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <h6 class="mob-text">$13.50</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- Replace "test" with your own sandbox Business account app client ID -->
+<script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+<!-- Set up a container element for the button -->
+<div id="paypal-button-container"></div>
+<script>
+  paypal.Buttons({
+    // Order is created on the server and the order id is returned
+    createOrder: (data, actions) => {
+      return fetch("/api/orders", {
+        method: "post",
+        // use the "body" param to optionally pass additional order information
+        // like product ids or amount
+      })
+      .then((response) => response.json())
+      .then((order) => order.id);
+    },
+    // Finalize the transaction on the server after payer approval
+    onApprove: (data, actions) => {
+      return fetch(`/api/orders/${data.orderID}/capture`, {
+        method: "post",
+      })
+      .then((response) => response.json())
+      .then((orderData) => {
+        // Successful capture! For dev/demo purposes:
+        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+        const transaction = orderData.purchase_units[0].payments.captures[0];
+        alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+        // When ready to go live, remove the alert and show a success message within this page. For example:
+        // const element = document.getElementById('paypal-button-container');
+        // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+        // Or go to another URL:  actions.redirect('thank_you.html');
+      });
+    }
+  }).render('#paypal-button-container');
+</script>
+        
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

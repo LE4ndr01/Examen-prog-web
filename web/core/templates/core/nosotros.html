@@ -1,0 +1,240 @@
+<html>
+  <head>
+    
+  <title> Nosotros </title>
+  <style type="text/css">
+  
+  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, target-densitydpi=device-dpi, initial-scale=0, maximum-scale=1, user-scalable=yes"> 
+  
+  <title>Add Map</title>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9XHaM2yer6dlEGYKoA5jyQkp-8f2Kvc4&callback=initMap&libraries=&v=weekly"
+      defer
+    ></script>
+    
+    
+  </head>
+
+  
+  <body style="background-color: black";>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<!-- navbar -->
+{% load static %} 
+<div>
+  <nav class="navbar sticky-top navbar-light navbar-expand-lg" style="text-align:center"> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar"> <span class="navbar-toggler-icon"></span> </button>
+    <link rel="stylesheet" href={% static 'core/estilos/estilo.css'%}>
+    <a href="{%url 'inicio'%}" title="Jardineria" class="logo"> 
+      <img align="left" src="https://w7.pngwing.com/pngs/403/286/png-transparent-gardening-nursery-garden-design-arborist-gazon-leaf-logo-grass.png" height="4.5%" width="4.5%" style="border-radius: 100%;margin: 5px;"> </a>
+    <div class="collapse navbar-collapse d-flex justify-content-end" id="collapsibleNavbar">
+    <div class="collapse navbar-collapse d-flex justify-content-end" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+          
+            <li class="nav-item active"><a class="nav-link" href="{% url 'inicio' %}">Inicio</a></li>
+            {% if user.is_staff %}
+            
+            <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Agregar</a>
+            <div class="dropdown-menu">
+                    {% if perms.core.view_producto %}
+                    <a class="dropdown-item" href="{% url 'listar' %}">Lista de  Productos</a>
+                    {% endif %}
+                    <a class="dropdown-item" href="#"></a>
+                    {% if perms.core.add_producto %}
+                    <a class="dropdown-item" href="{% url 'agregar' %}">Agregar Productos</a>
+                    {% endif %}
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-divider"></div>
+                    {% if perms.core.view_tipo %}
+                    <a class="dropdown-item" href="{% url 'listar_tipo' %}">Lista de Categorias</a>
+                    {% endif %}
+                    {% if perms.core.add_tipo %}
+                    <a class="dropdown-item" href="{% url 'agregar_tipo' %}">Agregar Categorias</a>
+                    {% endif %}
+                  </div>
+                </li>
+          {% endif %}
+        
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Tienda</a>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'venta' %}">Productos</a>
+                    <a class="dropdown-item" href="{% url 'seguimiento' %}">Seguimiento</a>
+                    <a class="dropdown-item" href="#"></a>
+                  <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#"></a>
+                  </div>
+                  
+                  <a href="https://le4ndr01.github.io/pgy_eva_1/index.html" title="Jardineria" class="logo" style="height: 110px;"> 
+                    
+            <li class="nav-item"><a class="nav-link" href="{%url 'contacto'%}">Contacto</a></li>
+            <li class="nav-item"><a class="nav-link" href="{%url 'nosotros'%}">Nosotros</a></li>
+            <li class="nav-item dropdown">
+              
+              {% if user.is_authenticated %}
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mi cuenta</a>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'dashuser' %}">@{{user.username}}</a>
+                    <a class="dropdown-item" href="{% url 'logout' %}">Salir</a>
+                    <div class="dropdown-divider"></div>
+              {% else %}
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Iniciar Sesion</a>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'login' %}" > Iniciar Sesion </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'registro'%}" > Registro </a>
+                  </div>
+                  </div>  
+              {% endif %}
+
+        </ul>
+      </div>
+  </nav>
+</div>
+  <!-- navbar -->
+<!-- texto -->
+
+
+  <form>
+    <div class="card" style="margin:50px">
+      <div class="card-body">
+        <p style="text-align: justify;margin: 30px;color: aliceblue;"  >
+        <b>
+          <h5 style="text-align:justify;color:aliceblue;font-family:courier,arial,helvética;"  >Lorem ipsum dolor sit amet consectetur adipiscing elit vitae tortor, 
+          orci at porta habitasse vulputate felis litora nostra primis arcu, 
+          tincidunt urna nibh nunc auctor tempus iaculis massa. 
+          Eu ante laoreet ridiculus nisi non mauris, erat magnis blandit metus natoque augue curae,
+           turpis a odio suspendisse luctus. Velit libero maecenas mattis sociosqu metus bibendum vivamus,
+            magna gravida semper congue vestibulum.
+      
+      Cras lectus iaculis dictum natoque lacinia hendrerit auctor aenean elementum quisque posuere, 
+      cursus pellentesque neque euismod faucibus vestibulum volutpat massa dapibus vitae gravida,
+       facilisis commodo semper quis varius leo vivamus lacus sodales risus. Tellus dictum at fames fusce 
+       proin porttitor leo, egestas nam est rhoncus nunc volutpat consequat, quis diam vehicula
+        dictumst quam maecenas. Purus aliquet enim tristique vestibulum placerat vivamus proin 
+        quis nisl, inceptos nunc facilisis mauris hendrerit interdum vitae non, bibendum semper 
+        turpis sem at ligula taciti nostra. Senectus felis sodales ridiculus orci dictumst dis, 
+        torquent condimentum malesuada lacinia conubia natoque suscipit, fames feugiat nunc suspendisse donec.</h5></b>
+      </p>
+    </div>
+    
+  </div>
+  </form>
+
+<!-- fin texto -->
+<!--<h3>My Google Maps Demo</h3>
+<!--The div element for the map -->
+
+<!--<div id="map" style="width:100%; height:100%"></div>
+
+<script src="{% static 'core/js/api.js'%}"></script>-->
+
+</body  >
+<!--   Footer -->
+<div class="container-fluid mt-5">
+  <link rel="stylesheet" href="{% static 'core/estilos/footer.css' %}">  
+<div class="card mx-5">
+<div class="row mb-4 ">
+    
+    <div class="col-md-4 col-sm-11 col-xs-11">
+        <div class="footer-text pull-left">
+             <div class="d-flex">
+                 <h1 class="font-weight-bold mr-2 px-3" style="color:#16151a; background-color:#957bda" > J </h1>
+                 <h1 style="color: #957bda">Ardineria</h1>
+             </div>
+             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi non pariatur numquam animi nam at impedit odit nisi.</p>
+             <div class="me-5 d-none d-lg-block">
+                <span style="text-align: left;">Tambien puedes contactarnos en Nuestras redes sociales</span>
+                <p>
+                  <a href="https://www.facebook.com/Productos-Jardin-110641138345578">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="facebook" height="15" width="15"></a>
+                  <a href="https://www.instagram.com/productos.jardineria/"><img src="https://w7.pngwing.com/pngs/16/46/png-transparent-made-in-kings-heath-instagram-facebook-female-graphy-instagram-logo-instagram-icon-text-trademark-magenta.png" alt="instagram" height="15px" width="15px" style="border-radius: 100%;"></a>
+                  <a href="https://twitter.com/"><img src="https://w7.pngwing.com/pngs/529/867/png-transparent-computer-icons-logo-twitter-miscellaneous-blue-logo-thumbnail.png" alt="twitter" height="15" width="15" style="border-radius: 100%;"></a>
+                </p>
+              </div>
+         </div>
+    </div>
+    
+    
+    <div class="col-md-2 col-sm-1 col-xs-1 mb-2"></div>
+    
+    <div class="col-md-2 col-sm-4 col-xs-4">
+ 
+        <h5 class="heading">Productos</h5>
+        <ul >
+            <li><a href="{% url 'venta' %}">Nuestros productos</a></li>
+            <li><a href="{% url 'seguimiento' %}">Seguimiento en linea</a></li>
+            <li><a href="">Donaciones</a></li>
+            <li></li>
+        </ul>
+ 
+    </div>
+ 
+ 
+    <div class="col-md-2 col-sm-4 col-xs-4">
+ 
+        <h5 class="heading">Nosotros</h5>
+        <ul class="card-text">
+            <li><a href="{% url 'inicio' %}">Inicio</a></li>
+            <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
+            <li><a href="{% url 'contacto' %}">Contacto</a></li>
+            
+        </ul>
+ 
+    </div>
+
+    <div class="col-md-2 col-sm-4 col-xs-4">
+ 
+        <h5 class="heading">Contacto</h5>
+        <p><i><img src="{% static 'core/iconos/geo-alt-fill.svg' %}" alt=""></i> Concha y Toro 1022,Puente Alto,Chile</p>
+        <p>
+            <i><img src="{% static 'core/iconos/envelope-fill.svg' %}" alt=""></i>
+            info@example.com
+          </p>
+          <p><i><img src="{% static 'core/iconos/phone-fill.svg' %}" alt="telefono"></i> + 56 52 623 623</p>
+          <p><i><img src="{% static 'core/iconos/telephone-fill.svg' %}" alt=""></i> + 56 22 536 523</p>    
+ 
+    </div>
+</div>
+
+
+<div class="divider mb-4" >   
+</div>
+
+
+<div class="row" style="font-size:10px;">
+
+<div class="col-md-6 col-sm-6 col-xs-6">
+    
+    <div class="pull-left">
+        
+        <p><i class="fa fa-copyright"></i> © 2022 <a href="index.html">Jardineria.com</a></p>
+        
+    </div>
+    
+</div>
+
+
+
+
+ 
+ 
+ 
+</div>
+</div>
+
+</div>
+</html>
