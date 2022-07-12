@@ -18,24 +18,11 @@ from django.contrib.auth.hashers import check_password
 from rest_framework import status
 from rest_framework.authentication import  TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from .services import get_lista
+
 # Create your views here.
 #---------------------------------
 
-def hello_user(requests):
-    context = {
-        'nombre': get_lista()
-    }
-    return render(requests, 'hello_user.html', context)
-#Si así lo deseamos poder enviar parametros a nuestra petición.
 
-def hello_user(requests):
-    params = { 'order': 'desc' }
-
-    context = {
-        'name': get_lista(params)
-    }
-    return render(requests, 'listar.html', context)
 
 #---------------------------------
 class ProductoViewset(viewsets.ModelViewSet):
@@ -51,6 +38,8 @@ class ProductoViewset(viewsets.ModelViewSet):
         return productos
 def inicio (request):
     return render(request, 'core/index.html')
+def mapa (request):
+    return render(request, 'core/mapa.html')
 def nosotros (request):
     return render(request, 'core/nosotros.html')
 def contacto (request):
